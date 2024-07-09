@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+
+<h2 style="text-align: center; margin-top: 10px; margin-bottom: 10px;">Book list</h2>
+
+
+
+{% if book_list %}
+
+<div>
+
+    {% for book in book_list %}
+
+    <div style="border: 1px solid #373434; border-radius: 10px; padding: 10px; margin-top: 10px;">
+
+        <h4><a href="{% url 'reviews:book_detail' book.id %}">
+        {{ book.name }}</a> <span style="font-size: 13px;" >Author name :-  {{ book.author }}</span></h4>
+        <h5>Total Reviews Count of Book = {{ book.review_set.count }}</h5>
+        <h5>Average Rating on Book = {{ book.average_rating | floatformat }}</h5>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+    <p>No books are available.</p>
+
+{% endif %}
+
+{% endblock %}

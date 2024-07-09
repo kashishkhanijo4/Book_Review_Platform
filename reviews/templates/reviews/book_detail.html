@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+
+{% block title %}
+
+<h2 class="text-primary" style="text-align: center;">Book Name:- {{ book.name }}</h2>
+<h3 style="text-align: center; margin-top: -4px; font-size: 13px;">Author Name:- {{ book.author }} </h3>
+
+<h5 style="text-align: center;">Reviews = {{ book.review_set.count }}  ({{ wine.average_rating | floatformat }}Average Rating)</h5>
+<h3>Recent Reviews</h3>
+
+{% if book.review_set.all %}
+
+<div>
+
+    {% for review in book.review_set.all %}
+
+    <div>
+
+        <em>{{ review.comment }}</em>
+
+        <h6>Rated {{ review.rating }} of 5 by {{ review.user_name }}</h6>
+
+        <h5><a href="{% url 'reviews:review_detail' review.id %}">
+
+        Read more
+
+        </a></h5>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<p style="font-size: 10px; margin-top: -10px;">No reviews for this book yet</p>
+
+{% endif %}
+
+<h3>Add your review</h3>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'reviews:add_review' book.id %}" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form layout='inline' %}
+    {% buttons %}
+    <button type="submit" class="btn btn-primary">
+      {% bootstrap_icon "star" %} Add
+    </button>
+    {% endbuttons %}
+</form>
+
+{% endblock %}

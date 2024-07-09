@@ -1,0 +1,19 @@
+<div>
+    {% extends 'base.html' %}
+    {% load bootstrap3 %}
+
+
+    {% block title %}
+    <div style="margin-top: 10px;">
+        <h2 style="text-align: center;"><a href="{% url 'reviews:book_detail' review.book.id %}">{{ review.book.name }}</a>
+        </h2>
+        {% endblock %}
+    
+        {% block content %}
+        <h4 style="text-align: center; font-size: 13px; margin-top: -10px;">Rated <b>{{ review.rating }} of 5</b> by <a
+                href="{% url 'reviews:user_review_list' review.user_name %}">{{ review.user_name }}</a></h4>
+        <p style="text-align: center;">{{ review.pub_date }}</p>
+        <p style="text-align: center;"><i>{{ review.comment }}</i></p>
+    </div>
+    {% endblock %}
+</div>
