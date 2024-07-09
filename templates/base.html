@@ -1,0 +1,45 @@
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block bootstrap3_content %}
+<div style="width: 100vw; height: 100vh; display: flex; justify-content: center; border-radius: 20px;">
+    <div class="container" style="padding: 50px; border-radius: 10px;">
+        <nav class="navbar navbar-default ">
+        
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'reviews:review_list' %}" style="color: black;">Kashish's Book Review</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{% url 'reviews:review_list' %}" style="color: black;">Home</a></li>
+                    <li><a href="{% url 'reviews:book_list' %}" style="color: black;">Book List</a></li>         
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+
+                <div style=" display: flex; gap: 5px; margin-top: 10px;" >
+                    <li><a  style="margin-top:5px; display: flex; justify-content: center; align-items: center;" href="{% url 'reviews:user_review_list' user.username %}">Hello {{ user.username }}</a></li>
+                    <li><a href="{% url 'logout' %}" class="btn btn-primary" style="width: 80px; height: 30px; color: white; display: flex; justify-content: center; align-items: center; margin-right: 10px;">Logout</a></li>
+                </div>
+                    {% else %}
+                    <div style=" display: flex; gap: 5px; margin-top: 10px;">
+                        <li><a href="{% url 'login' %}" class="btn btn-primary" style="width: 80px; height: 30px; color: white; display: flex; justify-content: center; align-items: center;">Login</a></li>
+                        <li><a href="/accounts/register" class="btn btn-primary" style="width: 80px; height: 30px; color: white; display: flex; justify-content: center; align-items: center; margin-right: 10px;">Register</a></li>
+                    </div>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        
+    
+        <h1>{% block title %}(no title){% endblock %}</h1>
+    
+        {% bootstrap_messages %}
+    
+        {% block content %}(no content){% endblock %}
+    </div>
+</div>
+
+{% endblock %}
